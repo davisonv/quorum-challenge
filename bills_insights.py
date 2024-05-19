@@ -1,18 +1,14 @@
 import pandas as pd
 
-class CSVHandler:
+class BillsInsights:
     def __init__(self,):
         self.support_vote = 1
         self.oppose_vote = 2
     
-    def read_csv(self, file_path):
-        df = pd.read_csv(file_path)
-        return df
-    
     def supported_and_opposed_bills_per_legislator(self, vote_results_file_path, legislators_file_path):
         # Read CSV files
-        vote_results_df = self.read_csv(vote_results_file_path)
-        legislators_df = self.read_csv(legislators_file_path)
+        vote_results_df = pd.read_csv(vote_results_file_path)
+        legislators_df = pd.read_csv(legislators_file_path)
 
         # Merge dataframes to get legislators details and vote results
         combined_df = vote_results_df.merge(legislators_df, left_on='legislator_id', right_on='id')
@@ -31,10 +27,10 @@ class CSVHandler:
 
     def process_bills_and_votes(self, bills_file_path, votes_file_path, vote_results_file_path, legislators_file_path):
         # Read CSV files
-        bills_df = self.read_csv(bills_file_path)
-        votes_df = self.read_csv(votes_file_path)
-        vote_results_df = self.read_csv(vote_results_file_path)
-        legislators_df = self.read_csv(legislators_file_path)
+        bills_df = pd.read_csv(bills_file_path)
+        votes_df = pd.read_csv(votes_file_path)
+        vote_results_df = pd.read_csv(vote_results_file_path)
+        legislators_df = pd.read_csv(legislators_file_path)
 
         # Merge dataframes to get bill details and vote results
         merged_df = bills_df.merge(votes_df, left_on='id', right_on='bill_id', suffixes=('_bill', '_vote'))
@@ -60,7 +56,7 @@ class CSVHandler:
 
         
 
-csv_handler = CSVHandler()
+bills_insights = BillsInsights()
 
-csv_handler.supported_and_opposed_bills_per_legislator("./models/vote_results.csv", "./models/legislators.csv")
-csv_handler.process_bills_and_votes("./models/bills.csv", "./models/votes.csv", "./models/vote_results.csv", "./models/legislators.csv")
+bills_insights.supported_and_opposed_bills_per_legislator("./models/vote_results.csv", "./models/legislators.csv")
+bills_insights.process_bills_and_votes("./models/bills.csv", "./models/votes.csv", "./models/vote_results.csv", "./models/legislators.csv")

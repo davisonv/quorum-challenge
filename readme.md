@@ -31,3 +31,8 @@ To run this project, you need to set up a virtual environment and install the ne
     ```bash
         pip install -r requirements.txt
     ```
+
+4. **Run the python file**
+   ```bash
+       python bills_insights.py
+    ``` 
